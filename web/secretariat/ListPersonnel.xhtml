@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/secretariat/template.xhtml">
+         <ui:define name="title">Liste du personnel</ui:define>
+         <ui:define name="content">
+             <h:form id="ProprietaireListForm">
+                   <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="personnel" pageOnly="true"/>
+                    </p:commandButton>
+                     <h1><h:outputText value="Liste du personnel"/></h1>
+                     <p:dataTable id="datalist" 
+                                  value="#{personnelBean.findAll()}" var="item"
+                                  selectionMode="single" selection="#{personnelBean.personnel}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                  editable="true"
+                                 draggableColumns="true"
+                                  widgetVar="personnelTable"
+                                  emptyMessage="Aucun enregistrement trouvé" 
+                                  >
+                           <p:ajax event="rowSelect"   update="viewButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton"/>
+                        
+                         <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Recherche:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('personnelTable').filter()" style="width:150px" placeholder="Entez votre recherche"/>
+                        </p:outputPanel>
+                        </f:facet>
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}" headerText="Identifiant">
+                            <h:outputText value="#{item.id}"/>
+                         </p:column>
+                         <p:column sortBy="#{item.nom}" filterBy="#{item.nom}" headerText="Nom">
+                            <h:outputText value="#{item.nom}"/>
+                         </p:column>
+                         <p:column sortBy="#{item.prenom}" filterBy="#{item.prenom}" headerText="Prenom">
+                             <h:outputText value="#{item.prenom}"/>
+                         </p:column>
+                         <p:column sortBy="#{item.fonction}" filterBy="#{item.fonction}" headerText="Fonction">
+                            <h:outputText value="#{item.fonction}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.telephone}" filterBy="#{item.telephone}" headerText="Téléphone">
+                             <h:outputText value="#{item.telephone}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.adresse}" filterBy="#{item.adresse}" headerText="Adresse">
+                            <h:outputText value="#{item.adresse}"/>
+                         </p:column>
+                         <p:column sortBy="#{item.email}" filterBy="#{item.email}" headerText="Email">
+                             <h:outputText value="#{item.email}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.matricule}" filterBy="#{item.matricule}" headerText="Matricule">
+                            <h:outputText value="#{item.matricule}"/>
+                         </p:column>
+                          <f:facet name="footer">
+                             
+                              <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":ProprietaireViewForm" oncomplete="PF('ProprietaireViewDialog').show()" disabled="#{empty personnelBean.personnel}"/>
+                             </f:facet>
+                     </p:dataTable>
+                       <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="personnel" pageOnly="true"/>
+                    </p:commandButton>
+                 </h:form>
+                <ui:include src="/personnel/View.xhtml"/>
+
+         </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:composition>
+        
+        <p:dialog id="ProprietaireEditDlg" widgetVar="ProprietaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modifier proprietaire">
+             <h:form id="ProprietaireEditForm">
+                 <h:panelGroup id="display">
+                      <p:panelGrid columns="2" rendered="#{personnelBean.personnel != null}">
+                          <p:outputLabel value="Identifiant:" for="idPersonnel" />
+                          <p:inputText id="idPersonnel" value="#{personnelBean.personnel.id}" title="Identifiant" />
+                       <p:outputLabel value="Nom:" for="nom" />
+                        <p:inputText id="nom" value="#{personnelBean.personnel.nom}" title="Nom" />
+                        <p:outputLabel value="Prenom:" for="prenom" />
+                        <p:inputText id="prenom" value="#{personnelBean.personnel.prenom}" title="Prenom" />
+                        <p:outputLabel value="Fonction:" for="fonction" />
+                        <p:inputText id="fonction" value="#{personnelBean.personnel.fonction}" title="Fonction" />
+                        <p:outputLabel value="Telephone:" for="telephone" />
+                        <p:inputMask id="telephone" value="#{personnelBean.personnel.telephone}" title="Telephone" mask="99-99-99-99" />
+                        <p:outputLabel value="Adresse:" for="adresse" />
+                        <p:inputText id="adresse" value="#{personnelBean.personnel.adresse}" title="Adresse" />
+                        <p:outputLabel value="Email:" for="email" />
+                        <p:inputText id="email" value="#{personnelBean.personnel.email}" title="Email" />
+                        <p:outputLabel value="Matricule:" for="matricule" />
+                        <p:inputText id="matricule" value="#{personnelBean.personnel.matricule}" title="Matricule" required="true" requiredMessage="The Matricule field is required."/>
+                    </p:panelGrid>
+                     <p:commandButton actionListener="#{personnelBean.modifierPersonnelAdmin()}" value="Valider" update="display,:ProprietaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProprietaireEditDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="ProprietaireEditDialog.hide()"/>
+                 </h:panelGroup>
+             </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

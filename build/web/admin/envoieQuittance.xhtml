@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/admin/template.xhtml">
+        <ui:define name="title">Envoie de quittance</ui:define>
+        <ui:define name="content">
+            
+            <h:form style="position: relative ">
+                <p:fieldset>
+                <h:outputText value="QUITTANCE DE LOYER" style="padding-left: 500px; font-size: 24px; text-decoration: underline; font-family: bold"/>
+                <br/>
+                
+                         <h:outputLabel value="Email du locataire*:" for="locataireDestinataire" style="font-size: 20px; font-family: Arial"/>
+                         <p:inputText id="locataireDestinataire" value="#{quittanceBean.locataireDestinantaire}" title="Email" required="true" requiredMessage="Veuillez remplir ce champ" style="width: 50%; height: 20px;font-size: 20px"/>
+                        <br/>
+                           <p:spacer/>
+                           <br/>
+                           <div id="centre">
+                            <h:outputText value="REFERENCES" style="font-size: 22px; text-decoration: underline;color: black;font-family: bold"/>
+                   <h:panelGrid columns="2">
+                       <h:outputLabel value="Local*:" for="local" style="font-size: 20px; font-family: Arial"/>
+                       <p:inputTextarea id="local" value="#{quittanceBean.local}" required="true" requiredMessage="Renseignez les informations du local" title="description du local" style="width: 70%; font-size: 19px"/>
+                            <h:outputLabel value="Quittance de*:" for="nom" style="font-size: 20px; font-family: Arial"/>
+                            <p:inputTextarea id="nom" value="#{quittanceBean.nom}" required="true" requiredMessage="Veuillez inscrire le nom du locataire" title="nom et prenom" style="width: 300px;font-size: 19px"/>
+                            <h:outputLabel value="La somme de*:" for="montant" style="font-size: 20px; font-family: Arial"/>
+                            <p:inputText id="montant" value="#{quittanceBean.montant}" required="true" requiredMessage="Veuillez mettre le montant" style="width: 300px; height: 20px;font-size: 19px" />
+                            <h:outputLabel value="Reste à payer*:" for="reste" style="font-size: 20px; font-family: Arial"/>
+                            <p:inputText id="reste" value="#{quittanceBean.reste}" required="true" requiredMessage="Veuillez mettre le montant du reste" style="width: 300px; height: 20px;font-size: 19px"/>
+
+                            <h:outputText value="Loyer du mois de*:" style="font-size: 20px; font-family: Arial"/>
+                            <p:selectOneMenu id="DateDelivrance" value="#{quittanceBean.dateDelivrance}" style="width:125px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Mois" itemValue="" />
+                                <f:selectItem itemLabel="Janvier" itemValue="Janvier" />
+                                <f:selectItem itemLabel="Frevrier" itemValue="Fevrier" />
+                                <f:selectItem itemLabel="Mars" itemValue="Mars" />
+                                <f:selectItem itemLabel="Avril" itemValue="Avril" />
+                                <f:selectItem itemLabel="Mai" itemValue="Mai" />
+                                <f:selectItem itemLabel="Juin" itemValue="Juin" />
+                                <f:selectItem itemLabel="Juillet" itemValue="Juillet" />
+                                <f:selectItem itemLabel="Aout" itemValue="Aout" />
+                                <f:selectItem itemLabel="Septembre" itemValue="Septembre" />
+                                <f:selectItem itemLabel="Octobre" itemValue="Octobre" />
+                                <f:selectItem itemLabel="Novembre" itemValue="Novembre" />
+                                <f:selectItem itemLabel="Decembre" itemValue="Decembre" />
+                            </p:selectOneMenu>
+                     </h:panelGrid>
+                           </div>
+                            <p:spacer/>
+                            
+                               
+                            
+                            <p:separator/>
+                            <p:spacer/>
+                </p:fieldset>
+                <h:commandButton  value="Envoyer" action="#{quittanceBean.sendQuittanceAdmin()}" style="background-color: #3300ff; color: white; width: 100px; height: 45px;"/>
+                </h:form>
+          
+        </ui:define>
+    </ui:composition>
+</html>
+

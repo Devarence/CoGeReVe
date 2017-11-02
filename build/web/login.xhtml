@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Connexion</title>
+    </h:head>
+    <h:body style="background:#f1f1f1">
+        <div id="indexcentre">
+            <h:outputText value="CoGeReVeImmo" style=" font-size: 50px; background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#045FB4)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"/>
+        <f:view>
+            <h:form style="padding-top: 100px; padding-left: 25%;">
+                <p:outputLabel style="font-weight: bold;  font-family: Arial, 'Times New Roman', Verdana, serif; font-size: 24px;">Bienvenu sur <span style=" background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#045FB4)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">"CoGeReVeImmo"</span>. Veuillez vous connecter!</p:outputLabel>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Username:" for="login" style=" font-weight: bold;  font-family: Arial, 'Times New Roman', Verdana, serif; color: #cc3300;text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.75);"/>
+                    <p:inputText id="login" value="#{exempleBean.username}" title="Login" required="true" requiredMessage="Entrez un login" />
+                    <p:outputLabel value="Password:" for="password" style=" font-weight: bold;  font-family: Arial, 'Times New Roman', Verdana, serif; color: #cc3300;text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.75);"/>
+                    <p:password id="password" value="#{exempleBean.password}" title="Mot de passe" required="true" requiredMessage="Entrez le mot de passe"/>
+                </h:panelGrid>
+                <p:commandButton id="submit" value="Connexion" action="#{exempleBean.doLogin()}" icon="ui-icon-check"/>
+             </h:form>
+        </f:view>
+
+    </div>
+    </h:body>
+</html>
+

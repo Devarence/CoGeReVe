@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="BailCreateDlg" widgetVar="BailCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Création d'un bien">
+         
+                <h:form id="BailCreateForm">
+                    <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bienBean.bien != null}">
+                        <p:outputLabel value="Statut:" for="statut" />
+                        <p:selectOneMenu id="statut" value="#{bienBean.bien.statut}" effect="fold" editable="true">
+                            <f:selectItem itemLabel="Libre" itemValue="Libre"/>
+                            <f:selectItem itemLabel="Occupe" itemValue="Occupe"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Loyer:" for="loyer" />
+                        <p:inputText id="loyer" value="#{bienBean.bien.loyer}" title="Loyer" required="true" requiredMessage="The Loyer field is required."/>
+                        <p:outputLabel value="Type de Bien:" for="typeBien" />
+                         <p:selectOneMenu id="typeBien" value="#{bienBean.bien.typeBien}" effect="fold" editable="true">
+                            <f:selectItem itemLabel="appartement" itemValue="appartement"/>
+                            <f:selectItem itemLabel="magasin" itemValue="magasin"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="NbrePiece:" for="nbrePiece" />
+                        <p:inputText id="nbrePiece" value="#{bienBean.bien.nbrePiece}" title="NbrePiece" required="true" requiredMessage="The NbrePiece field is required."/>
+                        <p:outputLabel value="Nom:" for="nom" />
+                        <p:inputText id="nom" value="#{bienBean.bien.nom}" title="Nom" required="true" requiredMessage="The Nom field is required."/>
+                        <p:outputLabel value="ImmeubleId:" for="immeubleId" />
+                        <p:selectOneMenu id="immeubleId" value="#{bienBean.bien.immeubleId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{immeubleBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.idimmeuble}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="LocataireId:" for="locataireId" />
+                        <p:selectOneMenu id="locataireId" value="#{bienBean.bien.locataireId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{locataireBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.idlocataire}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                        <p:commandButton actionListener="#{bienBean.creerBienAdmin()}" value="Valider" update="display,:BailListForm:datalist,:growl" oncomplete="handleSubmit(args,'BailCreateDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="BailCreateDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+          
+        </p:dialog>
+    </ui:composition>
+</html>
+

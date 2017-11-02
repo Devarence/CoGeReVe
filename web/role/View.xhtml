@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="ClientViewDlg" widgetVar="ClientViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Client">
+             <h:form id="ClientViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{roleBean.role != null}">
+                        <h:outputText value="Id role:"/>
+                        <h:outputText value="#{roleBean.role.idrole}" title="Idrole"/>
+                        <h:outputText value="Nom roles:"/>
+                        <h:outputText value="#{roleBean.role.nomroles}" title="Nomroles"/>
+                        <h:outputText value="Identifiant user:"/>
+                        <h:outputText value="#{roleBean.role.utilisateurIdutilisateur}" title="UtilisateurIdutilisateur"/>
+                    </p:panelGrid>
+                     <p:commandButton value="Retour" onclick="ClientViewDialog.hide()"/>
+                </h:panelGroup>
+                </h:form>
+           
+        </p:dialog>
+    </ui:composition>
+</html>
+

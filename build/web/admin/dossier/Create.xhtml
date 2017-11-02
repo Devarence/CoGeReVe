@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="LocataireCreateDlg" widgetVar="LocataireCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Création user">
+           
+                <h:form id="LocataireCreateForm">
+                   <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dossierBean.dossier != null}">
+                       <p:outputLabel value="Absence:" for="absence" />
+                        <p:inputTextarea id="absence" value="#{dossierBean.dossier.absence}" title="Absence" />
+                        <p:outputLabel value="Motif:" for="motif" />
+                        <p:inputTextarea id="motif" value="#{dossierBean.dossier.motif}" title="Motif" />
+                        <p:outputLabel value="DateD:" for="dateD" />
+                        <p:calendar id="dateD" pattern="dd/MM/yyyy" value="#{dossierBean.dossier.dateD}" title="Date de creation" showOn="button"/>
+                        <p:outputLabel value="Duree:" for="duree" />
+                        <p:inputText id="duree" value="#{dossierBean.dossier.duree}" title="Duree" />
+                        <p:outputLabel value="Sanction:" for="sanction" />
+                        <p:inputTextarea id="sanction" value="#{dossierBean.dossier.sanction}" title="Sanction" />
+                        <p:outputLabel value="Identifiant Personnel:" for="idPersonnel" />
+                        <p:selectOneMenu id="idPersonnel" value="#{dossierBean.dossier.idPersonnel}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{personnelBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.id}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dossierBean.creerDossierAdmin()}" value="Valider" update="display,:LocataireListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocataireCreateDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="LocataireCreateDialog.hide()"/>
+                   </h:panelGroup>
+                </h:form>
+          
+        </p:dialog>
+    </ui:composition>
+</html>
+

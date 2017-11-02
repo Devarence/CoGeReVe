@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="LocationCreateDlg" widgetVar="LocationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Création locataire">
+             <h:form id="LocationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementBean.paiement != null}">
+                       <p:outputLabel value="Loyer:" for="loyer" />
+                        <p:inputText id="loyer" value="#{paiementBean.paiement.loyer}" title="Loyer" required="true" requiredMessage="The Loyer field is required."/>
+                        <p:outputLabel value="Date Paiement:" for="datePaiement" />
+                        <p:calendar id="datePaiement" pattern="dd/MM/yyyy" value="#{paiementBean.paiement.datePaiement}" title="Date de paiement" showOn="button"/>
+                        <p:outputLabel value="Date Echeance:" for="dateEcheance" />
+                        <p:calendar id="dateEcheance" pattern="dd/MM/yyyy" value="#{paiementBean.paiement.dateEcheance}" title="Date Echeance" showOn="button"/>
+                        <p:outputLabel value="Frais Gardiennage:" for="fraisGardiennage" />
+                        <p:inputText id="fraisGardiennage" value="#{paiementBean.paiement.fraisGardiennage}" title="FraisGardiennage" />
+                        <p:outputLabel value="Penalite:" for="penalite" />
+                        <p:inputText id="penalite" value="#{paiementBean.paiement.penalite}" title="Penalite" />
+                        <p:outputLabel value="Pourcentage:" for="pourcentage" />
+                        <p:inputText id="pourcentage" value="#{paiementBean.paiement.pourcentage}" title="Pourcentage" />
+                        <p:outputLabel value="Total:" for="total" />
+                        <p:inputText id="total" value="#{paiementBean.paiement.total}" title="Total" />
+                        <p:outputLabel value="Statut Paiement:" for="statutPaiement" />
+                        <p:selectOneMenu id="statutPaiement" value="#{paiementBean.paiement.statutPaiement}" title="Statut du paiement">
+                            <f:selectItem itemLabel="paye" itemValue="paye"/>
+                            <f:selectItem itemLabel="impaye" itemValue="impaye"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Identifiant Locataire:" for="locataireId" />
+                        <p:selectOneMenu id="locataireId" value="#{paiementBean.paiement.locataireId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                           <f:selectItems value="#{locataireBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.idlocataire}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paiementBean.creerPaiementAdmin()}" value="Valider" update="display,:LocationListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocationCreateDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="LocationCreateDialog.hide()"/>
+                </h:panelGroup>
+                </h:form>
+          
+
+        </p:dialog>
+    </ui:composition>
+</html>
+

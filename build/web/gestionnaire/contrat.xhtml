@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/gestionnaire/template.xhtml">
+        <ui:define name="title">Contrat de location</ui:define>
+        <ui:define name="content">
+            
+            <h:form style="position: relative ">
+                <p:fieldset>
+                <h:outputText value="CONTRAT DE LOCATION" style="padding-left: 400px; font-size: 24px; text-decoration: underline; font-family: bold"/>
+                <br/>
+                <p:spacer/>
+                           <br/>
+                           <div id="centre">
+                            <h:outputText value="REFERENCES" style="font-size: 22px; text-decoration: underline;color: black;font-family: bold"/>
+                   <h:panelGrid columns="2">
+                        <h:outputLabel value="Nom et prenom du locataire*:" for="nom" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="nom" value="#{quittanceBean.nom}" required="true" requiredMessage="Veuillez inscrire le nom du locataire" title="nom et prenom" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Profession*:" for="profession" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="profession" value="#{quittanceBean.profession}" required="true" requiredMessage="Veuillez inscrire la profession" title="profession" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Nationalité*:" for="nationalite" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="nationalite" value="#{quittanceBean.nationalite}" required="true" requiredMessage="Veuillez inscrire la nationalité" title="nationalité" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Date de naissance*:" for="naiss" style="font-size: 20px; font-family: Arial"/>
+                        <p:calendar id="naiss" pattern="dd/MM/yyyy" value="#{quittanceBean.naiss}" title="Date naissance" showOn="button" required="true" requiredMessage="Veuillez inscrire la date de naissance" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Adresse postale*:" for="adresse" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="adresse" value="#{quittanceBean.adresse}"  title="adresse" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Carte Nationale d'Identité:" for="CNI" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="CNI" value="#{quittanceBean.CNI}"  title="CNI" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Nom et Adresse de l'employeur:" for="nomAdresse" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="nomAdresse" value="#{quittanceBean.nomAdresse}"  title="nom et adresse" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Nombre de piece:" for="piece" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="piece" value="#{quittanceBean.piece}" title="piece" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Porte*:" for="porte" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="porte" value="#{quittanceBean.porte}" required="true" requiredMessage="Veuillez inscrire la porte" title="porte" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Lot:" for="lot" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="lot" value="#{quittanceBean.lot}" title="nom et prenom" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Immeuble*:" for="nomI" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="nomI" value="#{quittanceBean.nomI}" required="true" requiredMessage="Veuillez inscrire le nom de l'immeuble" title="nom immeuble" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Localisation*:" for="SG" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="SG" value="#{quittanceBean.SG}" required="true" requiredMessage="Veuillez inscrire la localisation de l'immeuble" title="nom et prenom" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Montant du loyer*:" for="montant" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputText id="montant" value="#{quittanceBean.montant}" required="true" requiredMessage="Veuillez mettre le montant" style="width: 300px; height: 20px;font-size: 19px" />
+                        <h:outputLabel value="Nombre de mois de caution*:" for="ncaution" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="ncaution" value="#{quittanceBean.ncaution}" required="true" requiredMessage="Veuillez inscrire le nombre de mois de caution" title="nombre de mois de caution" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Nombre de mois d'avance*:" for="navance" style="font-size: 20px; font-family: Arial"/>
+                        <p:inputTextarea id="navance" value="#{quittanceBean.navance}" required="true" requiredMessage="Veuillez inscrire le nombre de mois d'avance" title="nombre de mois d'avance" style="width: 300px;font-size: 19px"/>
+                        <h:outputLabel value="Date du jour*:" for="dateDebut" style="font-size: 20px; font-family: Arial"/>
+                        <p:calendar id="dateDebut" pattern="dd/MM/yyyy" value="#{quittanceBean.dateDebut}" title="Date du jour" showOn="button" required="true" requiredMessage="Renseigner la date"/>
+                   </h:panelGrid>
+                           </div>
+                            <p:spacer/>                            
+                            <p:separator/>
+                            <p:spacer/>
+                </p:fieldset>
+                <p:commandButton value="resultat" action="#{quittanceBean.resultatGestionnaire()}"/>              
+                </h:form>
+          
+        </ui:define>
+    </ui:composition>
+</html>
+

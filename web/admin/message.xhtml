@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/admin/template.xhtml">
+        <ui:define name="title">Message</ui:define>
+        <ui:define name="content">
+            
+            <h:form style="position: relative ">
+                <p:fieldset>
+                <h:outputText value="MESSAGE" style="padding-left: 500px; font-size: 24px; text-decoration: underline; font-family: bold"/>
+                <br/>
+                
+                         <h:outputLabel value="Email*:" for="locataireDestinataire" style="font-size: 20px; font-family: Arial"/>
+                         <p:inputText id="locataireDestinataire" value="#{quittanceBean.locataireDestinantaire}" title="Email" required="true" requiredMessage="Veuillez remplir ce champ" style="width: 50%; height: 20px;font-size: 20px"/>
+                        <br/>
+                           <p:spacer/>
+                           <br/>
+                           <div id="centre">
+                               <h:panelGrid columns="2">
+                       <h:outputLabel value="Object:" for="sujet" style="font-size: 20px; font-family: Arial; text-decoration: underline"/>
+                       <p:inputText id="sujet" value="#{quittanceBean.sujet}" required="true" requiredMessage="Renseignez le sujet" title="sujet du message" style="width: 400px; font-size: 19px"/>
+                   </h:panelGrid>
+                  
+                               
+                           </div>
+                           <p:inputTextarea id="description" value="#{quittanceBean.description}" required="true" requiredMessage="Contenu" title="Contenu" style="width: 300px;height: 500px;font-size: 19px; padding: auto"/>
+                            <p:spacer/>
+                            
+                               
+                            
+                            <p:separator/>
+                            <p:spacer/>
+                </p:fieldset>
+                <h:commandButton  value="Envoyer" action="#{quittanceBean.sendMessageAdmin()}" style="background-color: #3300ff; color: white; width: 100px; height: 45px;"/>
+                
+                </h:form>
+          
+        </ui:define>
+    </ui:composition>
+</html>
+

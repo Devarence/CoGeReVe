@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="MaisonViewDlg" widgetVar="MaisonViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Contrat">
+           <h:form id="MaisonViewForm">
+                     <h:panelGroup id="display">                    
+                    <p:panelGrid columns="2" rendered="#{contratBean.contrat != null}">
+                        <h:outputText value="Identifiant:"/>
+                        <h:outputText value="#{contratBean.contrat.idcontrat}" title="Idcontrat"/>
+                        <h:outputText value="Nombre Piece:"/>
+                        <h:outputText value="#{contratBean.contrat.nbrePiece}" title="NbrePiece"/>
+                        <h:outputText value="Date:"/>
+                        <h:outputText value="#{contratBean.contrat.dateC}" title="DateC">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Loyer Mensuel:"/>
+                        <h:outputText value="#{contratBean.contrat.loyerMensuel}" title="LoyerMensuel"/>
+                        <h:outputText value="Caution:"/>
+                        <h:outputText value="#{contratBean.contrat.caution}" title="Caution"/>
+                        <h:outputText value="Avance:"/>
+                        <h:outputText value="#{contratBean.contrat.avance}" title="Avance"/>
+                       <h:outputText value="Bien:"/>
+                        <h:outputText value="#{contratBean.contrat.bienImmobilierId}" title="BienImmobilierId"/>
+                        <h:outputText value="Locataire:"/>
+                        <h:outputText value="#{contratBean.contrat.locataireId}" title="LocataireId"/>
+                    </p:panelGrid>
+                          <p:commandButton value="Retour" onclick="MaisonViewDialog.hide()"/>
+                 </h:panelGroup>
+                </h:form>
+           
+        </p:dialog>
+    </ui:composition>
+</html>
+

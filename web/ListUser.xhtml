@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Liste des Users</ui:define>
+        
+        <ui:define name="content">
+                       
+           <h:form id="LocataireListForm">
+                    <h1><h:outputText value="Liste users"/></h1>
+                    <p:dataTable id="datalist" 
+                                 value="#{exempleBean.afficherUser()}" 
+                                 var="item"
+                                 selectionMode="single" selection="#{exempleBean.utilisateur}"
+                                 paginator="true"
+                                 rowKey="#{item.idutilisateur}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                  resizableColumns="true"
+                                  editable="true"
+                                draggableColumns="true" widgetVar="userTable"
+                                  emptyMessage="Aucun enregistrement trouvé"
+                                >
+                              
+                          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idutilisateur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Login"/>
+                            </f:facet>
+                            <h:outputText value="#{item.login}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Password"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motDepass}"/>
+                        </p:column>
+                        
+                        
+                         <f:facet name="footer">
+                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Créer" actionListener="#{exempleBean.prepareCreate()}" update=":LocataireCreateForm" oncomplete="PF('LocataireCreateDialog').show()"/>
+                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":LocataireViewForm" oncomplete="PF('LocataireViewDialog').show()" disabled="#{empty exempleBean.utilisateur}"/>
+                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":LocataireEditForm" oncomplete="PF('LocataireEditDialog').show()" disabled="#{empty exempleBean.utilisateur}"/>
+                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{exempleBean.supprimerUser()}" update=":growl,datalist" disabled="#{empty exempleBean.utilisateur}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+             <p:separator/>
+           
+            <h:form id="ClientListForm">
+                    <h1><h:outputText value="Roles"/></h1>
+                    <p:dataTable id="datalist" 
+                                 value="#{roleBean.findAll()}" 
+                                 var="item"
+                                 selectionMode="single" selection="#{roleBean.role}"
+                                 paginator="true"
+                                 rowKey="#{item.idrole}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 editable="true"
+                                  draggableColumns="true" widgetVar="roleTable"
+                                  emptyMessage="Aucun enregistrement trouvé"
+                                 >
+                        
+                          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
+                         <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Recherche:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('roleTable').filter()" style="width:150px" placeholder="Entez votre recherche"/>
+                        </p:outputPanel>
+                        </f:facet>
+                        <p:column sortBy="#{item.idrole}" filterBy="#{item.idrole}" headerText="Identifiant">
+                            <h:outputText value="#{item.idrole}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nomroles}" filterBy="#{item.nomroles}" headerText="Nom role">
+                           <h:outputText value="#{item.nomroles}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.utilisateurIdutilisateur}" filterBy="#{item.utilisateurIdutilisateur}" headerText="Identifiant user">
+                           <h:outputText value="#{item.utilisateurIdutilisateur}"/>
+                        </p:column>
+                        
+                          <f:facet name="footer">
+                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Créer" actionListener="#{roleBean.prepareCreate()}" update=":ClientCreateForm" oncomplete="PF('ClientCreateDialog').show()"/>
+                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":ClientViewForm" oncomplete="PF('ClientViewDialog').show()" disabled="#{empty roleBean.role}"/>
+                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modfier" update=":ClientEditForm" oncomplete="PF('ClientEditDialog').show()" disabled="#{empty roleBean.role}"/>
+                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{roleBean.supprimerRole()}" update=":growl,datalist" disabled="#{empty roleBean.role}"/>
+                        </f:facet>
+                    </p:dataTable>
+                     <p:contextMenu for="datalist">
+                        <p:menuitem value="Details" update="roleDetail" icon="ui-icon-search" oncomplete="PF('roleDialog').show()"/>
+                   </p:contextMenu>
+                    
+                     <p:dialog header="Info user" widgetVar="roleDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="roleDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty roleBean.role}" columnClasses="label,value">
+                <h:outputText value="Id user:" />
+                <h:outputText value="#{roleBean.role.utilisateurIdutilisateur}" /> 
+                <h:outputText value="login:" />
+                <h:outputText value="#{roleBean.role.utilisateurIdutilisateur.login}" /> 
+                <h:outputText value="role:" />
+                <h:outputText value="#{roleBean.role.nomroles}" />
+              </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+                </h:form>
+            
+            
+           <ui:include src="/exemple/Create.xhtml"/>
+            <ui:include src="/exemple/Edit.xhtml"/>
+            <ui:include src="/exemple/View.xhtml"/>
+             <ui:include src="/role/Create.xhtml"/>
+            <ui:include src="/role/Edit.xhtml"/>
+            <ui:include src="/role/View.xhtml"/>
+           
+
+        </ui:define>
+    </ui:composition>
+</html>
+

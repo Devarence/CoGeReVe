@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/admin/template.xhtml">
+        <ui:define name="title">Liste des Users</ui:define>
+        
+        <ui:define name="content">
+                       
+           <h:form id="LocataireListForm">
+                    <h1><h:outputText value="Liste users"/></h1>
+                    <p:dataTable id="datalist" 
+                                 value="#{exempleBean.afficherUser()}" 
+                                 var="item"
+                                 selectionMode="single" selection="#{exempleBean.utilisateur}"
+                                 paginator="true"
+                                 rowKey="#{item.idutilisateur}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                  resizableColumns="true"
+                                  editable="true"
+                                 draggableColumns="true"
+                                >
+                              
+                          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idutilisateur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Login"/>
+                            </f:facet>
+                            <h:outputText value="#{item.login}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Password"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motDepass}"/>
+                        </p:column>
+                        
+                        
+                         <f:facet name="footer">
+                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Créer" actionListener="#{exempleBean.prepareCreate()}" update=":LocataireCreateForm" oncomplete="PF('LocataireCreateDialog').show()"/>
+                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":LocataireViewForm" oncomplete="PF('LocataireViewDialog').show()" disabled="#{empty exempleBean.utilisateur}"/>
+                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":LocataireEditForm" oncomplete="PF('LocataireEditDialog').show()" disabled="#{empty exempleBean.utilisateur}"/>
+                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{exempleBean.supprimerUser()}" update=":growl,datalist" disabled="#{empty exempleBean.utilisateur}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+                     
+              <ui:include src="/admin/exemple/Create.xhtml"/>
+            <ui:include src="/admin/exemple/Edit.xhtml"/>
+            <ui:include src="/admin/exemple/View.xhtml"/>
+            
+           
+
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:composition>
+        <p:dialog id="ReservationEditDlg" widgetVar="ReservationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modifier reservation">
+            <h:form id="ReservationEditForm">
+                 <h:panelGroup id="display">
+                        <p:panelGrid columns="2" rendered="#{immeubleBean.immeuble != null}">
+                            <p:outputLabel value="Identifiant:" for="idimmeuble" />
+                            <p:inputText id="idimmeuble" value="#{immeubleBean.immeuble.idimmeuble}" title="Immeuble" />
+                        <p:outputLabel value="Nom:" for="nom" />
+                        <p:inputText id="nom" value="#{immeubleBean.immeuble.nom}" title="Nom" required="true" requiredMessage="The Nom field is required."/>
+                        <p:outputLabel value="Localisation:" for="localisation" />
+                        <p:inputText id="localisation" value="#{immeubleBean.immeuble.localisation}" title="Localisation" />
+                    </p:panelGrid>
+                     <p:commandButton actionListener="#{immeubleBean.modifierImmeubleAdmin()}" value="Valider" update="display,:ReservationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReservationEditDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="ReservationEditDialog.hide()"/>
+                    </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

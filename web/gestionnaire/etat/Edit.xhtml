@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="ProprietaireEditDlg" widgetVar="ProprietaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modifier proprietaire">
+            <h:form id="ProprietaireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etatBean.etat != null}">
+                        <p:outputLabel value="Date:" for="dateE" />
+                       <p:calendar id="dateE" pattern="dd/MM/yyyy" value="#{etatBean.etat.dateE}" title="Date" showOn="button" required="true" requiredMessage="Entrez la date"/>
+                        <p:outputLabel value="Cuisine:" for="cuisine" />
+                        <p:inputTextarea id="cuisine" value="#{etatBean.etat.cuisine}" title="Cuisine" required="true" requiredMessage="Renseignez ce champ."/>
+                        <p:outputLabel value="Chambre:" for="chambre" />
+                        <p:inputTextarea id="chambre" value="#{etatBean.etat.chambre}" title="Chambre" required="true" requiredMessage="Renseignez ce champ."/>
+                        <p:outputLabel value="Salle Eaux et WC:" for="salleEauxWC" />
+                        <p:inputTextarea id="salleEauxWC" value="#{etatBean.etat.salleEauxWC}" title="SalleEauxWC" required="true" requiredMessage="Renseignez ce champ."/>
+                        <p:outputLabel value="Type Etat:" for="typeEtat" />
+                        <p:outputLabel value="Type Etat:" for="typeEtat" />
+                        <p:selectOneMenu id="typeEtat" value="#{etatBean.etat.typeEtat}" effect="fold" editable="true" title="TypeEtat">
+                            <f:selectItem itemLabel="Entree" itemValue="Libre"/>
+                            <f:selectItem itemLabel="Sortie" itemValue="Occupe"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Salon:" for="salon" />
+                        <p:inputTextarea id="salon" value="#{etatBean.etat.salon}" title="Salon" required="true" requiredMessage="Renseignez ce champ."/>
+                        <p:outputLabel value="Identifiant Bien:" for="bienImmobilierId" />
+                        <p:selectOneMenu id="bienImmobilierId" value="#{etatBean.etat.bienImmobilierId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                           <f:selectItems value="#{bienBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.id}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{etatBean.modifierEtat()}" value="Valider" update="display,:ProprietaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProprietaireEditDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="ProprietaireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

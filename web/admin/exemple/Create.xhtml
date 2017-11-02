@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="LocataireCreateDlg" widgetVar="LocataireCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Création user">
+          
+              <h:form id="LocataireCreateForm">
+                   <h:panelGroup id="display">
+                   
+                       <p:panelGrid columns="2" rendered="#{exempleBean.utilisateur != null}">
+                        <p:outputLabel value="Id:" for="id" />
+                        <p:inputText id="id" value="#{exempleBean.utilisateur.idutilisateur}" title="Id" />
+                        <p:outputLabel value="Login (Exemple: Nom.role):" for="login" />
+                        <p:inputText id="login" value="#{exempleBean.utilisateur.login}" title="Login (Exemple: Nom.role)" required="true" requiredMessage="Entrez un login  (Exemple: Nom.role)"/>
+                       <p:outputLabel value="PASSWORD" for="password"/>
+                       <p:password id="password" value="#{exempleBean.utilisateur.motDepass}" title="Mot de passe" required="true" requiredMessage="Entrez le mot de passe"/>
+                        
+                    </p:panelGrid>
+                       <p:commandButton actionListener="#{exempleBean.creerUser()}" value="Valider" update="display,:LocataireListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocataireCreateDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="LocataireCreateDialog.hide()"/>
+                   </h:panelGroup>
+                </h:form> 
+
+        </p:dialog>
+    </ui:composition>
+</html>
+

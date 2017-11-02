@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/admin/template.xhtml">
+        <ui:define name="title">Penalite</ui:define>
+        <ui:define name="content">
+            <h:form style="position: relative ">
+                <p:fieldset>
+                    <h:outputText value="PENALITE" style="padding-left: 400px; font-size: 24px; text-decoration: underline; font-family: bold"/>
+                    <br/>
+                     <h:outputLabel value="Email du locataire*:" for="locataireDestinataire" style="font-size: 20px; font-family: Arial"/>
+                    <p:inputText id="locataireDestinataire" value="#{quittanceBean.locataireDestinantaire}" title="Email" required="true" requiredMessage="Veuillez remplir ce champ" style="width: 50%; height: 20px;font-size: 20px"/>
+                     <br/>
+                <p:spacer/>
+                           <br/>
+                           <div id="centre">
+                               <h:panelGrid columns="2">
+                                    <h:outputLabel value="Loyer:"/>
+                                    <h:inputText value="#{quittanceBean.loyer}" required="true" requiredMessage="Renseignez ce champ"/> 
+                                    <h:outputLabel value="Frais de gardiennage:"/>
+                                    <h:inputText value="#{quittanceBean.gardiennage}" required="true" requiredMessage="Renseignez ce champ"/>
+                                    <h:outputLabel value="Date d'échéance:"/>
+                                    <p:calendar id="dateDebut" pattern="dd/MM/yyyy" value="#{quittanceBean.dateFin}" title="Date" showOn="button" required="true" requiredMessage="Renseigner la date"/>
+                                    <h:outputLabel value="Montant TOTAL:"/>
+                                    <h:inputText value="#{quittanceBean.montant}" required="true" requiredMessage="Renseignez ce champ"/> 
+                               </h:panelGrid>
+                           </div>
+                           <p:spacer/>                            
+                            <p:separator/>
+                            <p:spacer/>
+                </p:fieldset>
+                <p:commandButton value="Envoyer la penalité" actionListener="#{quittanceBean.sendPenaliteAdmin()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

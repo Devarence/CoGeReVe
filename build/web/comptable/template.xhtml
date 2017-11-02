@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://xmlns.jcp.org/jsf">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+    </h:head>     
+ <!--url('../resources/images/photo-de-maison-6.gif')-->
+    <h:body style="background:#f1f1f1; background-repeat: inherit; background-attachment: fixed">
+
+        <f:view>
+            <p:growl id="growl" life="3000" />   
+        <div id="top" class="top">
+            <h:outputText value="CoGeReVeImmo" style=" font-size: 50px; background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#045FB4)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"/>
+            <h:form id="menuForm">
+               
+                <p:menubar style="background-color: white; border: currentColor; background-color: #eff3f6; ">
+                    <p:menuitem value="ACCEUIL" outcome="/comptable/index.xhtml"></p:menuitem>
+                    
+                    <p:menuitem value="CONTRAT" disabled="true"/>
+                        <p:menuitem value="LOYERS/PAIEMENTS" outcome="/comptable/ListPaiement.xhtml"></p:menuitem>
+                        
+                        <p:menuitem value="ETAT DE LIEUX" disabled="true"></p:menuitem>
+                        
+                    <p:submenu label="RAPPORTS">
+                            <p:menuitem value="Contrat" disabled="true"></p:menuitem>
+                            <p:menuitem value="Operation Paiement" outcome="/comptable/paiement.xhtml"></p:menuitem>
+                            <p:menuitem value="Antécédent" disabled="true"></p:menuitem>
+                                                  
+                    </p:submenu>
+                          <p:submenu label="GESTION DU PERSONNEL">
+                              <p:menuitem value="PERSONNELS" disabled="true"></p:menuitem>
+                        <p:menuitem value="DOSSIERS" disabled="true"></p:menuitem>
+                        </p:submenu>
+                         
+                        <p:menuitem value="UTILISATEURS" disabled="true"></p:menuitem>
+                                      
+                      <f:facet name="options">
+                          <p:commandButton value="DECONNEXION" icon="ui-icon-extlink" style="color: red;border: 1px solid #1f89ce;background-color: #999999;" action="#{exempleBean.doLogout()}"/>
+                   </f:facet>
+                      
+                </p:menubar>
+                <p:separator/>
+                
+            </h:form>
+        </div>
+            
+            <div id="left" style=" border-style: none">
+            <p:spacer/>
+                <h:panelGrid>
+                            <p:outputLabel value="Action" style="text-decoration: underline"/>
+                            <p:button value="LOCATION" disabled="true" style="width: 140px;"/>
+                            <p:button value="IMMEUBLE" disabled="true" style="width: 140px;"/>
+                            <p:button value="BIEN" outcome="/comptable/ListBien.xhtml" style="width: 140px;"/>
+                            <p:button value="CONTRAT NUMERIQUE" outcome="/comptable/ListContrat.xhtml" style="width: 140px;"/>
+                            
+                            <p:outputLabel value="Carnet d'adresse" style="text-decoration: underline"/>
+                            <p:button value="LOCATAIRES" disabled="true" style="width: 140px;"/>
+                                                       
+                            <p:spacer/>
+                            <h:outputText value="HEURE/DATE"/>
+                            <p:clock pattern="HH:mm:ss dd.MM.yyyy" id="heure"/>
+                            
+                        </h:panelGrid>
+        </div>
+               
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        
+        </f:view>
+    </h:body>
+
+</html>

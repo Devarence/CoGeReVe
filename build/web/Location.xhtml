@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+         <ui:define name="title">Locations</ui:define>
+         <ui:define name="content">
+             
+             <h:form id="LocataireListForm">
+                  <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="loacataire" pageOnly="true"/>
+                    </p:commandButton>
+                     <h1><h:outputText value="Liste des locataires"/></h1>
+                     <p:dataTable id="datalist" value="#{locataireBean.findAll()}" 
+                                  var="item"
+                                 selectionMode="single" selection="#{locataireBean.locataire}"
+                                 rowKey="#{item.idlocataire}"
+                                  editable="true"
+                                 draggableColumns="true"
+                                  widgetVar="locataireTable"
+                                  emptyMessage="Aucun enregistrement trouvé" 
+                                  scrollable="true" scrollHeight="75"
+                                  >
+                          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
+                        <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Recherche:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('locataireTable').filter()" style="width:150px" placeholder="Entez votre recherche"/>
+                        </p:outputPanel>
+                        </f:facet>
+                        <p:column sortBy="#{item.idlocataire}" filterBy="#{item.idlocataire}" headerText="Identifiant locataire">
+                            <h:outputText value="#{item.idlocataire}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.nom}" filterBy="#{item.nom}" headerText="Nom">
+                             <h:outputText value="#{item.nom}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.prenom}" filterBy="#{item.prenom}" headerText="Prenom">
+                             <h:outputText value="#{item.prenom}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.dateNaiss}" filterBy="#{item.dateNaiss}" headerText="Date naissance">
+                             <h:outputText value="#{item.dateNaiss}">
+                                 <f:convertDateTime pattern="dd/MM/yyyy" />
+                             </h:outputText>
+                         </p:column>
+                        <p:column sortBy="#{item.nationalite}" filterBy="#{item.nationalite}" headerText="Nationalité">
+                            <h:outputText value="#{item.nationalite}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.situationMatri}" filterBy="#{item.situationMatri}" headerText="Situation matrimoniale">
+                             <h:outputText value="#{item.situationMatri}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.profession}" filterBy="#{item.profession}" headerText="Profession">
+                            <h:outputText value="#{item.profession}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.nbreEnfant}" filterBy="#{item.nbreEnfant}" headerText="Nombre d'enfant(s)">
+                            <h:outputText value="#{item.nbreEnfant}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.telephone}" filterBy="#{item.telephone}" headerText="Téléphone">
+                            <h:outputText value="#{item.telephone}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.adresse}" filterBy="#{item.adresse}" headerText="Adresse">
+                             <h:outputText value="#{item.adresse}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.email}" filterBy="#{item.email}" headerText="Email">
+                            <h:outputText value="#{item.email}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.persAppelUrgence}" filterBy="#{item.persAppelUrgence}" headerText="Personne à prevenir en cas d'urgence">
+                             <h:outputText value="#{item.persAppelUrgence}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.telephonePAU}" filterBy="#{item.telephonePAU}" headerText="Téléphone PAU">
+                             <h:outputText value="#{item.telephonePAU}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.emailPAU}" filterBy="#{item.emailPAU}" headerText="Email PAU">
+                            <h:outputText value="#{item.emailPAU}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.employeur}" filterBy="#{item.employeur}" headerText="Employeur">
+                            <h:outputText value="#{item.employeur}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.telBureau}" filterBy="#{item.telBureau}" headerText="Tel bureau">
+                             <h:outputText value="#{item.telBureau}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.domiciliation}" filterBy="#{item.domiciliation}" headerText="Domiciliation">
+                             <h:outputText value="#{item.domiciliation}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.numCompte}" filterBy="#{item.numCompte}" headerText="Numéro Compte Bancaire">
+                             <h:outputText value="#{item.numCompte}"/>
+                         </p:column>
+                         <p:column sortBy="#{item.cni}" filterBy="#{item.cni}" headerText="CNI">
+                            <h:outputText value="#{item.cni}"/>
+                         </p:column>
+                          <f:facet name="footer">
+                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Créer" actionListener="#{locataireBean.prepareCreate()}" update=":LocataireCreateForm" oncomplete="PF('LocataireCreateDialog').show()"/>
+                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":LocataireViewForm" oncomplete="PF('LocataireViewDialog').show()" disabled="#{empty locataireBean.locataire}"/>
+                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":LocataireEditForm" oncomplete="PF('LocataireEditDialog').show()" disabled="#{empty locataireBean.locataire}"/>
+                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{locataireBean.supprimerLocataire()}" update=":growl,datalist" disabled="#{empty locataireBean.locataire}"/>
+                        </f:facet>
+                     </p:dataTable>
+                     
+                       <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="locataire" pageOnly="true"/>
+                    </p:commandButton>
+                 </h:form>
+          
+                <ui:include src="/locataire/Create.xhtml"/>
+            <ui:include src="/locataire/Edit.xhtml"/>
+            <ui:include src="/locataire/View.xhtml"/>
+            
+            <p:separator/>
+            
+                     <h:form id="BailListForm">
+                      <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="bien" pageOnly="true"/>
+                    </p:commandButton>
+                    <h1><h:outputText value="Liste des biens"/></h1>
+                    <p:dataTable id="datalist"  value="#{bienBean.findAll()}" 
+                                 var="item"
+                                  selectionMode="single" selection="#{bienBean.bien}"
+                                 rowKey="#{item.id}"
+                                 editable="true"
+                                 draggableColumns="true"  widgetVar="bienTable"
+                                  emptyMessage="Aucun enregistrement trouvé"
+                                  scrollable="true" scrollHeight="75" rowStyleClass="#{item.statut le 'Libre' ? 'green' : 'red'}"
+                                 >
+                        
+                         <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+                        <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Recherche:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('bienTable').filter()" style="width:150px" placeholder="Entez votre recherche"/>
+                        </p:outputPanel>
+                        </f:facet>
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}" headerText="Identifiant">
+                              <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.statut}" filterBy="#{item.statut}" headerText="Statut">
+                           <h:outputText value="#{item.statut}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.loyer}" filterBy="#{item.loyer}" headerText="Loyer">
+                           <h:outputText value="#{item.loyer}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.typeBien}" filterBy="#{item.typeBien}" headerText="Type du bien">
+                            <h:outputText value="#{item.typeBien}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nbrePiece}" filterBy="#{item.nbrePiece}" headerText="Nombre de pièce">
+                           <h:outputText value="#{item.nbrePiece}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nom}" filterBy="#{item.nom}" headerText="Nom du bien">
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.immeubleId}" filterBy="#{item.immeubleId}" headerText="Identifiant de l'immeuble">
+                            <h:outputText value="#{item.immeubleId}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.locataireId}" filterBy="#{item.locataireId}" headerText="Identifiant du locataire">
+                            <h:outputText value="#{item.locataireId}"/>
+                        </p:column>
+                        
+                         <f:facet name="footer">
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":BailViewForm" oncomplete="PF('BailViewDialog').show()" disabled="#{empty bienBean.bien}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":BailEditForm" oncomplete="PF('BailEditDialog').show()" disabled="#{empty bienBean.bien}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{bienBean.supprimerBien()}" update=":growl,datalist" disabled="#{empty bienBean.bien}"/>
+                        </f:facet>
+                    </p:dataTable>
+                    
+                     <p:contextMenu for="datalist">
+                        <p:menuitem value="Details locataire" update="locataireDetail2" icon="ui-icon-search" oncomplete="PF('locataireDialog2').show()"/>
+                         <p:menuitem value="Details immeuble" update="immeubleDetail" icon="ui-icon-search" oncomplete="PF('immeubleDialog').show()"/>
+                         <p:menuitem value="Info General" update="infoDetail2" icon="ui-icon-search" oncomplete="PF('infoDialog2').show()"/>
+                   </p:contextMenu>
+                    
+                    
+    <p:dialog header="Info locataire" widgetVar="locataireDialog2" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="locataireDetail2" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty bienBean.bien}" columnClasses="label,value">
+                <h:outputText value="Id:" />
+                <h:outputText value="#{bienBean.bien.locataireId}" /> 
+                <h:outputText value="Nom:" />
+                <h:outputText value="#{bienBean.bien.locataireId.nom}" /> 
+                <h:outputText value="Prenom:" />
+                <h:outputText value="#{bienBean.bien.locataireId.prenom}" />
+                <h:outputText value="Nationalité:" />
+                <h:outputText value="#{bienBean.bien.locataireId.nationalite}" />
+                <h:outputText value="Adresse:" />
+                <h:outputText value="#{bienBean.bien.locataireId.adresse}" />
+                <h:outputText value="Téléphone:" />
+                <h:outputText value="#{bienBean.bien.locataireId.telephone}" />
+                <h:outputText value="Profession:" />
+                <h:outputText value="#{bienBean.bien.locataireId.profession}" />
+                <h:outputText value="Personne à appeler en cas d'urgence:" />
+                <h:outputText value="#{bienBean.bien.locataireId.persAppelUrgence}" />
+                <h:outputText value="Téléphone:" />
+                <h:outputText value="#{bienBean.bien.locataireId.telephonePAU}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+                     <p:dialog header="Info immeuble" widgetVar="immeubleDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="immeubleDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty bienBean.bien}" columnClasses="label,value">
+                <h:outputText value="Id:" />
+                <h:outputText value="#{bienBean.bien.immeubleId}" /> 
+                <h:outputText value="Nom:" />
+                <h:outputText value="#{bienBean.bien.immeubleId.nom}" /> 
+                <h:outputText value="Localisation:" />
+                <h:outputText value="#{bienBean.bien.immeubleId.localisation}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+                    
+                     <p:dialog header="Info generale" widgetVar="infoDialog2" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="infoDetail2" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty bienBean.bien}" columnClasses="label,value">
+                                <h:outputText value="Identifiant"/>
+                                <h:outputText value="#{bienBean.bien.id}"/>
+                                <h:outputText value="Porte"/>
+                                <h:outputText value="#{bienBean.bien.nom}"/>
+                                <h:outputText value="Immeuble:" />
+                                <h:outputText value="#{bienBean.bien.immeubleId.nom}" /> 
+                                <h:outputText value="Localisation:" />
+                                <h:outputText value="#{bienBean.bien.immeubleId.localisation}" />
+                                <h:outputText value="Nom"/>
+                                <h:outputText value="#{bienBean.bien.locataireId.nom}" /> 
+                                <h:outputText value="Prenom:" />
+                                <h:outputText value="#{bienBean.bien.locataireId.prenom}" />
+                                <h:outputText value="Téléphone:" />
+                                <h:outputText value="#{bienBean.bien.locataireId.telephone}" />
+                                <h:outputText value="Profession:" />
+                                <h:outputText value="#{bienBean.bien.locataireId.profession}" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                      <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="bien" pageOnly="true"/>
+                    </p:commandButton>
+                </h:form>
+            <ui:include src="/bien/Edit.xhtml"/>
+            <ui:include src="/bien/View.xhtml"/>
+            
+            <p:separator/>
+             <h:form id="LocationListForm">
+                   <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="location" pageOnly="true"/>
+                    </p:commandButton>
+                     <h1><h:outputText value="Liste des locations"/></h1>
+                     <p:dataTable id="datalist" 
+                                  value="#{locationBean.findAll()}" 
+                                  var="item"
+                                   selectionMode="single" selection="#{locationBean.location}"
+                                 paginator="true"
+                                 rowKey="#{item.idlocation}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                  editable="true"
+                                 draggableColumns="true"
+                                  widgetVar="locationTable"
+                                  emptyMessage="Aucun enregistrement trouvé" 
+                                  >
+                           <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
+                         <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Recherche:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('locationTable').filter()" style="width:150px" placeholder="Entez votre recherche"/>
+                        </p:outputPanel>
+                        </f:facet>
+                        <p:column sortBy="#{item.idlocation}" filterBy="#{item.idlocation}" headerText="Identifiant">
+                             <h:outputText value="#{item.idlocation}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.dateL}" filterBy="#{item.dateL}" headerText="Date">
+                             <h:outputText value="#{item.dateL}">
+                                 <f:convertDateTime pattern="dd/MM/yyyy" />
+                             </h:outputText>
+                         </p:column>
+                        <p:column sortBy="#{item.bienImmobilierId}" filterBy="#{item.bienImmobilierId}" headerText="Identifiant bien">
+                             <h:outputText value="#{item.bienImmobilierId}"/>
+                         </p:column>
+                        <p:column sortBy="#{item.locataireId}" filterBy="#{item.locataireId}" headerText="Identifiant locataire">
+                            <h:outputText value="#{item.locataireId}"/>
+                         </p:column>
+                         <f:facet name="footer">
+                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Créer" actionListener="#{locationBean.prepareCreate()}" update=":LocationCreateForm" oncomplete="PF('LocationCreateDialog').show()"/>
+                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":LocationViewForm" oncomplete="PF('LocationViewDialog').show()" disabled="#{empty locationBean.location}"/>
+                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":LocationEditForm" oncomplete="PF('LocationEditDialog').show()" disabled="#{empty locationBean.location}"/>
+                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{locationBean.supprimerLocation()}" update=":growl,datalist" disabled="#{empty locationBean.location}"/>
+                        </f:facet>
+                     </p:dataTable>
+                     
+                       <p:contextMenu for="datalist">
+                        <p:menuitem value="Details locataire" update="locataireDetail" icon="ui-icon-search" oncomplete="PF('locataireDialog').show()"/>
+                         <p:menuitem value="Details bien" update="bienDetail" icon="ui-icon-search" oncomplete="PF('bienDialog').show()"/>
+                          <p:menuitem value="Info Generale" update="infoDetail" icon="ui-icon-search" oncomplete="PF('infoDialog').show()"/>
+                   </p:contextMenu>
+                    
+                    
+    <p:dialog header="Info locataire" widgetVar="locataireDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="locataireDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty locationBean.location}" columnClasses="label,value">
+                <h:outputText value="Id:" />
+                <h:outputText value="#{locationBean.location.locataireId}" /> 
+                <h:outputText value="Nom:" />
+                <h:outputText value="#{locationBean.location.locataireId.nom}" /> 
+                <h:outputText value="Prenom:" />
+                <h:outputText value="#{locationBean.location.locataireId.prenom}" />
+                <h:outputText value="Nationalité:" />
+                <h:outputText value="#{locationBean.location.locataireId.nationalite}" />
+                <h:outputText value="Adresse:" />
+                <h:outputText value="#{locationBean.location.locataireId.adresse}" />
+                <h:outputText value="Téléphone:" />
+                <h:outputText value="#{locationBean.location.locataireId.telephone}" />
+                <h:outputText value="Profession:" />
+                <h:outputText value="#{locationBean.location.locataireId.profession}" />
+                <h:outputText value="Personne à appeler en cas d'urgence:" />
+                <h:outputText value="#{locationBean.location.locataireId.persAppelUrgence}" />
+                <h:outputText value="Téléphone:" />
+                <h:outputText value="#{locationBean.location.locataireId.telephonePAU}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+                     <p:dialog header="Info bien" widgetVar="bienDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="bienDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty locationBean.location}" columnClasses="label,value">
+                <h:outputText value="Id:" />
+                <h:outputText value="#{locationBean.location.bienImmobilierId}" /> 
+                <h:outputText value="Nom:" />
+                <h:outputText value="#{locationBean.location.bienImmobilierId.nom}" /> 
+                <h:outputText value="Immeuble:" />
+                <h:outputText value="#{locationBean.location.bienImmobilierId.immeubleId.nom}" />
+                <h:outputText value="Localisation:"/>
+                <h:outputText value="#{locationBean.location.bienImmobilierId.immeubleId.localisation}"/>
+                <h:outputText value="Loyer:"/>
+                <h:outputText value="#{locationBean.location.bienImmobilierId.loyer}"/>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+                     <p:dialog header="Info generale" widgetVar="infoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                         <p:outputPanel id="infoDetail" style="text-align:center;">
+                                       <h:outputText value="#{locationBean.location.bienImmobilierId.immeubleId.nom}" style="font-weight: bold;font-size: 14px"/>
+                                       <p:panelGrid  columns="2" rendered="#{not empty locationBean.location}" columnClasses="label,value" style="width:50%; margin-left: 15%">
+                                  <h:outputText value="Identifiant"/>
+                                  <h:outputText value="#{locationBean.location.idlocation}"/>
+                                  <h:outputText value="Porte:" />
+                                  <h:outputText value="#{locationBean.location.bienImmobilierId.nom}" /> 
+                                  <h:outputText value="Localisation:"/>
+                                  <h:outputText value="#{locationBean.location.bienImmobilierId.immeubleId.localisation}"/>
+                                  <h:outputText value="Loyer:"/>
+                                  <h:outputText value="#{locationBean.location.bienImmobilierId.loyer}"/>
+                                  <h:outputText value="Nom:" />
+                                  <h:outputText value="#{locationBean.location.locataireId.nom}" /> 
+                                  <h:outputText value="Prenom:" />
+                                  <h:outputText value="#{locationBean.location.locataireId.prenom}" />
+                                  <h:outputText value="Téléphone:" />
+                                  <h:outputText value="#{locationBean.location.locataireId.telephone}" />
+                             </p:panelGrid>
+                         </p:outputPanel>
+                          <p:commandButton value="Imprimer" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px" action="#{quittanceBean.sendQuittance()}">
+                    <p:printer target="infoDetail"/>
+                </p:commandButton>
+                     </p:dialog>
+                       <p:commandButton value="Exporter au format pdf" ajax="false">
+                         <p:dataExporter type="pdf" target="datalist" fileName="location" pageOnly="true"/>
+                    </p:commandButton>
+                 </h:form>
+             <ui:include src="/location/Create.xhtml"/>
+          <ui:include src="/location/Edit.xhtml"/>
+          <ui:include src="/location/View.xhtml"/>
+
+         </ui:define>
+    </ui:composition>
+</html>
+

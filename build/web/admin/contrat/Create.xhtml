@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="MaisonCreateDlg" widgetVar="MaisonCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Création d'un contrat numerique">
+             <h:form id="MaisonCreateForm">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" rendered="#{contratBean.contrat != null}">
+                       
+                        <p:outputLabel value="Nombre Piece:" for="nbrePiece" />
+                        <p:inputText id="nbrePiece" value="#{contratBean.contrat.nbrePiece}" title="NbrePiece" />
+                        <p:outputLabel value="Date:" for="dateC" />
+                        <p:calendar id="dateC" pattern="dd/MM/yyyy" value="#{contratBean.contrat.dateC}" title="Date"  required="true" requiredMessage="La date est obligatoire." showOn="button"/>
+                        <p:outputLabel value="Loyer Mensuel:" for="loyerMensuel" />
+                        <p:inputText id="loyerMensuel" value="#{contratBean.contrat.loyerMensuel}" title="LoyerMensuel" required="true" requiredMessage="Inscrivez le loyer."/>
+                        <p:outputLabel value="Caution:" for="caution" />
+                        <p:inputText id="caution" value="#{contratBean.contrat.caution}" title="Caution" />
+                        <p:outputLabel value="Avance:" for="avance" />
+                        <p:inputText id="avance" value="#{contratBean.contrat.avance}" title="Avance" />
+                        <p:outputLabel value="Identifiant du bien:" for="bienImmobilierId" />
+                        <p:selectOneMenu id="bienImmobilierId" value="#{contratBean.contrat.bienImmobilierId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{bienBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.id}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Identifiant du locataire:" for="locataireId" />
+                        <p:selectOneMenu id="locataireId" value="#{contratBean.contrat.locataireId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{locataireBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.idlocataire}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                        <p:commandButton actionListener="#{contratBean.creerContratAdmin()}" value="Valider" update="display,:MaisonListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaisonCreateDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="MaisonCreateDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+           
+
+        </p:dialog>
+    </ui:composition>
+</html>
+

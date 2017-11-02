@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="LocationEditDlg" widgetVar="LocationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modifier location">
+            <h:form id="LocationEditForm">
+                <h:panelGroup id="display">
+                     <p:panelGrid columns="2" rendered="#{locationBean.location != null}">
+                         <p:outputLabel value="Identifiant:" for="idlocation" />
+                         <p:inputText id="idlocation" value="#{locationBean.location.idlocation}" title="Identifiant" />
+                       <p:outputLabel value="Date:" for="dateL" />
+                        <p:calendar id="dateL" pattern="dd/MM/yyyy" value="#{locationBean.location.dateL}" title="Date" showOn="button" required="true" requiredMessage="Entrez la date"/>
+                        <p:outputLabel value="Identifiant Bien:" for="bienImmobilierId" />
+                        <p:selectOneMenu id="bienImmobilierId" value="#{locationBean.location.bienImmobilierId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{bienBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.id}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Identifiant Locataire:" for="locataireId" />
+                        <p:selectOneMenu id="locataireId" value="#{locationBean.location.locataireId}" >
+                            <!-- TODO: update below reference to list of available items-->
+                           <f:selectItems value="#{locataireBean.itemsAvailableSelectOne}"
+                                           var="item"
+                                           itemLabel="#{item.idlocataire}"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{locationBean.modifierLocationAdmin()}" value="Valider" update="display,:LocationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LocationEditDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Annuler" onclick="LocationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

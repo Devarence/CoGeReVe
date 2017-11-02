@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="LocataireViewDlg" widgetVar="LocataireViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Locataire">
+          <h:form id="LocataireViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{locataireBean.locataire != null}">
+                        <h:outputText value="Identifiant locataire:"/>
+                        <h:outputText value="#{locataireBean.locataire.idlocataire}" title="Idlocataire"/>
+                        <h:outputText value="Nom:"/>
+                        <h:outputText value="#{locataireBean.locataire.nom}" title="Nom"/>
+                        <h:outputText value="Prenom:"/>
+                        <h:outputText value="#{locataireBean.locataire.prenom}" title="Prenom"/>
+                        <h:outputText value="Date de Naissance:"/>
+                        <h:outputText value="#{locataireBean.locataire.dateNaiss}" title="DateNaiss">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Nationalite:"/>
+                        <h:outputText value="#{locataireBean.locataire.nationalite}" title="Nationalite"/>
+                        <h:outputText value="Situation Matrimoniale:"/>
+                        <h:outputText value="#{locataireBean.locataire.situationMatri}" title="SituationMatri"/>
+                        <h:outputText value="Profession:"/>
+                        <h:outputText value="#{locataireBean.locataire.profession}" title="Profession"/>
+                        <h:outputText value="Nombre Enfant:"/>
+                        <h:outputText value="#{locataireBean.locataire.nbreEnfant}" title="NbreEnfant"/>
+                        <h:outputText value="Telephone:"/>
+                        <h:outputText value="#{locataireBean.locataire.telephone}" title="Telephone"/>
+                        <h:outputText value="Adresse:"/>
+                        <h:outputText value="#{locataireBean.locataire.adresse}" title="Adresse"/>
+                        <h:outputText value="Email:"/>
+                        <h:outputText value="#{locataireBean.locataire.email}" title="Email"/>
+                        <h:outputText value="Personne à Appeler en cas d'Urgence:"/>
+                        <h:outputText value="#{locataireBean.locataire.persAppelUrgence}" title="PersAppelUrgence"/>
+                        <h:outputText value="Telephone PAU:"/>
+                        <h:outputText value="#{locataireBean.locataire.telephonePAU}" title="TelephonePAU"/>
+                        <h:outputText value="Email  PAU:"/>
+                        <h:outputText value="#{locataireBean.locataire.emailPAU}" title="EmailPAU"/>
+                        <h:outputText value="Employeur:"/>
+                        <h:outputText value="#{locataireBean.locataire.employeur}" title="Employeur"/>
+                        <h:outputText value="TelBureau:"/>
+                        <h:outputText value="#{locataireBean.locataire.telBureau}" title="TelBureau"/>
+                        <h:outputText value="Domiciliation:"/>
+                        <h:outputText value="#{locataireBean.locataire.domiciliation}" title="Domiciliation"/>
+                        <h:outputText value="Numero Compte:"/>
+                        <h:outputText value="#{locataireBean.locataire.numCompte}" title="NumCompte"/>
+                        <h:outputText value="CNI:"/>
+                        <h:outputText value="#{locataireBean.locataire.cni}" title="Cni"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Retour" onclick="LocataireViewDialog.hide()"/>
+                </h:panelGroup>
+                </h:form>
+         
+
+        </p:dialog>
+    </ui:composition>
+</html>
+

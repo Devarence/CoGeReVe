@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition template="/admin/template.xhtml">
+        
+        <ui:define name="title">Réçu</ui:define>
+        <ui:define name="content">
+            
+            <h:form>
+                
+                <p:fieldset>
+                    
+                    <h:outputText value="RECU" style="padding-left: 500px; font-size: 24px; text-decoration: underline; font-family: bold"/>
+                    <br/>
+                    
+                    <div id="centre">
+                        <h:outputText id="recu" value="#{quittanceBean.message2}" style="text-align: center; font-size: 24px"/>
+                    </div>
+                </p:fieldset>
+                
+                 <p:commandButton value="Imprimer" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                     <p:printer target="recu"/>
+                </p:commandButton>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

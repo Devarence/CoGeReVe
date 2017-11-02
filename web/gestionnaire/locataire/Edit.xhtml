@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="LocataireEditDlg" widgetVar="LocataireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modifier locataire">
+            <h:form id="LocataireEditForm">
+                <h:panelGroup id="display">
+                     <p:panelGrid columns="2" rendered="#{locataireBean.locataire != null}">
+                         <p:outputLabel value="Identifiant:" for="idlocataire" />
+                         <p:inputText id="idlocataire" value="#{locataireBean.locataire.idlocataire}" title="Identifiant" />
+                        <p:outputLabel value="Nom:" for="nom" />
+                        <p:inputText id="nom" value="#{locataireBean.locataire.nom}" title="Nom" required="true" requiredMessage="Entrez le nom."/>
+                        <p:outputLabel value="Prenom:" for="prenom" />
+                        <p:inputText id="prenom" value="#{locataireBean.locataire.prenom}" title="Prenom"/>
+                        <p:outputLabel value="Date de Naissance:" for="dateNaiss" />
+                       <p:calendar id="dateNaiss" pattern="dd/MM/yyyy" value="#{locataireBean.locataire.dateNaiss}" title="Date de naissance" showOn="button"/>
+                        <p:outputLabel value="Nationalite:" for="nationalite" />
+                        <p:inputText id="nationalite" value="#{locataireBean.locataire.nationalite}" title="Nationalite" />
+                        <p:outputLabel value="Situation Matrimoniale:" for="situationMatri" />
+                        <p:selectOneMenu id="situationMatri" value="#{locataireBean.locataire.situationMatri}" effect="fold" editable="true">
+                            <f:selectItem itemLabel="Marie(e)" itemValue="Marie(e)"/>
+                            <f:selectItem itemLabel="Divorce(e)" itemValue="Divorce(e)"/>
+                            <f:selectItem itemLabel="Celibataire" itemValue="Celibataire"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Profession:" for="profession" />
+                        <p:inputText id="profession" value="#{locataireBean.locataire.profession}" title="Profession" />
+                        <p:outputLabel value="Nombre Enfant:" for="nbreEnfant" />
+                        <p:inputText id="nbreEnfant" value="#{locataireBean.locataire.nbreEnfant}" title="NbreEnfant" />
+                        <p:outputLabel value="Telephone:" for="telephone" />
+                        <p:inputMask id="telephone" value="#{locataireBean.locataire.telephone}" title="Telephone" mask="99-99-99-99"/>
+                        <p:outputLabel value="Adresse:" for="adresse" />
+                        <p:inputText id="adresse" value="#{locataireBean.locataire.adresse}" title="Adresse" />
+                        <p:outputLabel value="Email:" for="email" />
+                        <p:inputText id="email" value="#{locataireBean.locataire.email}" title="Email" />
+                        <p:outputLabel value="Personne à Appeler en cas d'Urgence:" for="persAppelUrgence" />
+                         <p:inputText id="persAppelUrgence" value="#{locataireBean.locataire.persAppelUrgence}" title="PersAppelUrgence" />
+                        <p:outputLabel value="Telephone PAU:" for="telephonePAU" />
+                        <p:inputMask id="telephonePAU" value="#{locataireBean.locataire.telephonePAU}" title="TelephonePAU" mask="99-99-99-99" />
+                        <p:outputLabel value="Email PAU:" for="emailPAU" />
+                        <p:inputText id="emailPAU" value="#{locataireBean.locataire.emailPAU}" title="EmailPAU" />
+                        <p:outputLabel value="Employeur:" for="employeur" />
+                        <p:inputText id="employeur" value="#{locataireBean.locataire.employeur}" title="Employeur" />
+                        <p:outputLabel value="Tel Bureau:" for="telBureau" />
+                        <p:inputMask id="telBureau" value="#{locataireBean.locataire.telBureau}" title="TelBureau" mask="99-99-99-99" />
+                        <p:outputLabel value="Domiciliation:" for="domiciliation" />
+                        <p:inputText id="domiciliation" value="#{locataireBean.locataire.domiciliation}" title="Domiciliation" />
+                        <p:outputLabel value="Numero de Compte:" for="numCompte" />
+                        <p:inputText id="numCompte" value="#{locataireBean.locataire.numCompte}" title="NumCompte" />
+                        <p:outputLabel value="CNI:" for="cni" />
+                        <p:inputText id="cni" value="#{locataireBean.locataire.cni}" title="Cni" />
+                    </p:panelGrid>
+                     <p:commandButton actionListener="#{locataireBean.modifierLocataire()}" value="Valider" update="display,:LocataireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LocataireEditDialog');" icon="ui-icon-check"/>
+                    <p:commandButton value="Valider" onclick="LocataireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

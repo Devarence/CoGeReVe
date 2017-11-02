@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+         <ui:define name="title">Contrat de location</ui:define>
+         <ui:define name="content">
+             <h:form style="position: relative ">
+                 <p:fieldset id="corps">
+                     <h:outputText value="CONTRAT DE LOCATION" style="padding-left: 400px; font-size: 24px; text-decoration: underline; font-family: bold"/>
+                     <br/>
+                      <h:outputLabel value="Email du locataire*:" for="locataireDestinataire" style="font-size: 20px; font-family: Arial"/>
+                      <p:inputText id="locataireDestinataire" value="#{quittanceBean.locataireDestinantaire}" title="Email" required="true" requiredMessage="Veuillez remplir ce champ" style="width: 50%; height: 20px;font-size: 20px"/>
+                      <p style="font-family: Arial; font-size: 12px; color: black">
+                        Entre les soussignés <br/>
+                        Monsieur: N'GBOBA KOKO JEAN <br/>
+                        Domicile: PLATEAU-DOKUI<br/>
+                        Adresse: 06 BP 1229 CIDEX 1 ABIDJAN 06<br/>
+                        Telephone: 22 41 28 00<br/>
+                        Le Diresteur,<br/>
+                        Et<br/>
+                        Mlle; Mme; M: <h:inputText value="#{quittanceBean.nom}"/> <br/>
+                        Profession: <h:inputText value="#{quittanceBean.profession}"/> <br/>
+                        Nationalité: <h:inputText value="#{quittanceBean.nationalite}"/><br/>
+                        Né(e) le: <p:calendar value="#{quittanceBean.naiss}" pattern="dd/MM/yyyy" showOn="button"/><br/>
+                        Adresse postale: <h:inputText value="#{quittanceBean.adresse}"/><br/>
+                        Carte Nationale d'Identité: <h:inputText value="#{quittanceBean.CNI}"/><br/>
+                        Nom et Adresse de l'Employeur: <h:inputText value="#{quittanceBean.nomAdresse}"/><br/>
+                        Le locataire<br/>
+                        <br/>
+                        Il a été convenu et arrêté ce qui suit:<br/>
+                        ARTICLE I: Le directeur par le présent acte loue à Mme; Mlle; M <h:inputText value="#{quittanceBean.nom}"/><br/>
+                        1 appartement/magasin de <h:inputText value="#{quittanceBean.piece}"/> pièce(s). Porte <h:inputText value="#{quittanceBean.porte}"/><br/>
+                        Situé à <h:inputText value="#{quittanceBean.nomI}"/> au <h:inputText value="#{quittanceBean.SG}"/> Lot: <h:inputText value="#{quittanceBean.lot}"/><br/>
+             <br/>
+                        ARTICLE II: La present location est consentie pour une durée indéterminée. Toutefois, l'une ou l'autre partie peut prendre l'initiative
+                        de la rupture du contrat à charge de donner un préavis de (1) mois.
+             <br/>
+                        ARTICLE III: A: le loyer mensuel est fixé a <h:inputText value="#{quittanceBean.montant}"/> payable au plus tard le 06 (six) du mois quittance. AU DELA DE LA DATE LIMITE
+                        DU PAIEMENT, UNE PENALITE DE 10% SERA PERCUE A TITRE DE FRAIS DE RECOUVREMENT SUR LE LOYER ET N'EST PAS NEGOCIABLE.<br/>
+                        <h:inputText value="#{quittanceBean.ncaution}"/> Mois de caution = <h:inputText value="#{quittanceBean.caution}"/>F<br/>
+                        <h:inputText value="#{quittanceBean.navance}"/> Mois avance = <h:inputText value="#{quittanceBean.avance}"/>F<br/>
+                        TOTAL: <h:inputText value="#{quittanceBean.total}"/>F<br/>
+             <br/>
+                        B: La caution n'est pas un loyer. Elle sera restituée après:<br/>
+                            -Le locataire doit informer par écrit le proprietaire de la décision de quitter l'appartement ou magasin, 1 mois avant.<br/>
+                            -L'état des lieux de sortie sera effectué par le proprietaire ou son représentant avec le locataire, suivi des aménagements qui lui incombent.<br/>
+                            -La présentation de la quittance de loyer en cours<br/>
+                            -La présentation des réçus des résiliations des abonnements de CIE, SODECI, CI-TELCOM exigés.<br/>
+                        N.B: La caution est une garantie et ne peut être substitué à un loyer.<br/>
+             <br/>
+                        ARTICLE IV: Les frais d'abonnement et de consommation d'eau, d'électricité et de téléphone incombent au locataire.<br/>
+             <br/>
+                        ARTICLE V: Les dispositions qui ne sont pas expressement prévues dans le contrat sont régies par les CAUTIONS GENERALES de LOCATION auxquelles le locataire devra se reporter.<br/>
+                        Le locataire reconnaît avoir pris connaissance des CONDITIONS GENERALES de LOCATION et s'engage à s'y conformer.<br/>
+                                                        Fait à Abidjan, le <p:calendar value="#{quittanceBean.dateDebut}" pattern="dd/MM/yyyy" showOn="button"/><br/>
+                                                        Le locataire (Fait précéder la signature de la mention lu et approuvé)
+                     </p>
+                 </p:fieldset>
+                 <p:panelGrid>
+                    <h:commandButton  value="Envoyer" action="#{quittanceBean.sendContrat()}" style="background-color: #3300ff; color: white; width: 100px; height: 85px;"/>
+                 </p:panelGrid>
+             </h:form>
+         </ui:define>
+    </ui:composition>
+</html>
+
